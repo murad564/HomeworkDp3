@@ -1,102 +1,110 @@
-﻿//using System.Collections.Generic;
-//public abstract class Observer
-//{
-//    protected Subject? subject;
-//    public abstract void update();
-//}
-//public class Subject
-//{
+﻿using System;
+using System.Collections.Generic;
+namespace ObserverDesignPattern;
 
-//    private List<Observer> observers = new();
-//    private int state;
+#nullable disable
 
-//    public int getState()
-//    {
-//        return state;
-//    }
+public interface ISubject
+{
+    void RegisterObserver(IObserver observer);
+    void RemoveObserver(IObserver observer);
+    void NotifyObservers();
+}
 
-//    public void setState(int state)
-//    {
-//        this.state = state;
-//        notifyAllObservers();
-//    }
+public interface IObserver
+{
+    void update(string availability);
+}
 
-//    public void attach(Observer observer)
-//    {
-//        observers.Add(observer);
-//    }
+public class Observer : IObserver
+{
+    private string v;
+    private Subject redMI;
 
-//    public void notifyAllObservers()
-//    {
-//        foreach (Observer observer in observers)
-//        {
-//            observer.Update();
-//        }
-//    }
-//}
+    public string UserName { get; set; }
+    public Observer(string userName, ISubject subject)
+    {
+        UserName = userName;
+        subject.RegisterObserver(this);
+    }
 
-//public class BinaryObserver : Observer
-//{
+    public Observer(string v, Subject redMI)
+    {
+        this.v = v;
+        this.redMI = redMI;
+    }
 
-//   public BinaryObserver(Subject subject)
-//{
-//    this.subject = subject;
-//    this.subject.attach(this);
-//}
+    public void update(string availabiliy)
+    {
+        Console.WriteLine("Hello " + UserName + ", Product is now " + availabiliy + " on Amazon");
+    }
+}
+public class Subject : ISubject
+{
+    private List<IObserver> observers = new List<IObserver>();
+    private string ProductName { get; set; }
+    private int ProductPrice { get; set; }
+    private string Availability { get; set; }
+    public Subject(string productName, int productPrice, string availability)
+    {
+        ProductName = productName;
+        ProductPrice = productPrice;
+        Availability = availability;
+    }
 
-//// Override
-//   public void update()
-//{
-//        Console.WriteLine("Binary String: " + ToString(subject.getState()));
-//}
-//}
+    public string getAvailability()
+    {
+        return Availability;
+    }
+    public void setAvailability(string availability)
+    {
+        this.Availability = availability;
+        Console.WriteLine("Availability changed from Out of Stock to Available.");
+        NotifyObservers();
+    }
+    public void RegisterObserver(IObserver observer)
+    {
+        Console.WriteLine("Observer Added : " + ((Observer)observer).UserName);
+        observers.Add(observer);
+    }
+    public void AddObservers(IObserver observer)
+    {
+        observers.Add(observer);
+    }
+    public void RemoveObserver(IObserver observer)
+    {
+        observers.Remove(observer);
+    }
+    public void NotifyObservers()
+    {
+        Console.WriteLine("Product Name :"
+                        + ProductName + ", product Price : "
+                        + ProductPrice + " is Now available. So notifying all Registered users ");
+        Console.WriteLine();
+        foreach (IObserver observer in observers)
+        {
+            observer.update(Availability);
+        }
+    }
+}
 
-//public class OctalObserver : Observer
-//{
+class Program
+{
+    static void Main()
+    {
+        //Create a Product with Out Of Stock Status
+        Subject RedMI = new Subject("Red MI Mobile", 10000, "Out Of Stock");
+        //User Anurag will be created and user1 object will be registered to the subject
+        Observer user1 = new Observer("Anurag", RedMI);
+        //User Pranaya will be created and user1 object will be registered to the subject
+        Observer user2 = new Observer("Pranaya", RedMI);
+        //User Priyanka will be created and user3 object will be registered to the subject
+        Observer user3 = new Observer("Priyanka", RedMI);
 
-//   public OctalObserver(Subject subject)
-//{
-//    this.subject = subject;
-//    this.subject.attach(this);
-//}
-
-//// Override
-//   public void update()
-//{
-//    Console.WriteLine("Octal String: " + ToString(subject.getState()));
-//}
-//}
-
-//public class HexaObserver: Observer
-//{
-
-//   public HexaObserver(Subject subject)
-//{
-//    this.subject = subject;
-//    this.subject.attach(this);
-//}
-
-////Override
-//   public void update()
-//{
-//        Console.WriteLine("Hex String: " + ToString(subject.getState()).toUpperCase());
-//}
-//}
-
-
-//public class Program
-//{
-//    public static void main(String[] args)
-//    {
-//        Subject subject = new Subject();
-
-//        new HexaObserver(subject);
-//        new OctalObserver(subject);
-//        new BinaryObserver(subject);
-
-//        Console.WriteLine("First state change: 15");
-//        subject.setState(15);
-//        Console.WriteLine("Second state change: 10");
-//        subject.setState(10);
-//    }
-//}
+        Console.WriteLine("Red MI Mobile current state : " + RedMI.getAvailability());
+        Console.WriteLine();
+        // Now product is available
+        RedMI.setAvailability("Available");
+        Console.Read();
+    }
+}

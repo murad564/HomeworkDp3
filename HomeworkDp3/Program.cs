@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 
-namespace HomeworkDp3;
+namespace Memento;
+
+#nullable disable
 
 public class Memento
 {
@@ -19,7 +21,7 @@ public class Memento
 
 public class Originator
 {
-    private string? state;
+    private string state;
 
     public void setState(string state)
     {

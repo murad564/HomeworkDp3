@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.1.32319.34
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HomeworkDp3", "HomeworkDp3\HomeworkDp3.csproj", "{7684F0E4-D2B2-46FD-B8CD-9C4C701F2408}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Memento", "HomeworkDp3\Memento.csproj", "{7684F0E4-D2B2-46FD-B8CD-9C4C701F2408}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Observer", "Observer\Observer.csproj", "{1DB49D76-45D6-4391-B62C-4069F16FAE00}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Observer", "Observer\Observer.csproj", "{1DB49D76-45D6-4391-B62C-4069F16FAE00}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "State", "State\State.csproj", "{3B1E948C-29DD-4BE4-A2ED-B942C123E57D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "State", "State\State.csproj", "{3B1E948C-29DD-4BE4-A2ED-B942C123E57D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
